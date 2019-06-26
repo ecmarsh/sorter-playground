@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class NumbersCollection {
     constructor(data) {
         this.data = data;
+        this.compare = this.compare.bind(this);
+        this.swap = this.compare.bind(this);
     }
     get length() {
         return this.data.length;

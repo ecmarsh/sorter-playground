@@ -10,6 +10,8 @@ class LinkedList {
     constructor(data = { head: null }, size = 0) {
         this.data = data;
         this.size = size;
+        this.compare = this.compare.bind(this);
+        this.swap = this.swap.bind(this);
     }
     get length() {
         return this.size;

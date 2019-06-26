@@ -1,5 +1,8 @@
 export default class CharStar {
-  constructor(public data: string) {}
+  constructor(public data: string) {
+    this.compare = this.compare.bind(this)
+    this.swap = this.swap.bind(this)
+  }
 
   public get length(): number {
     return this.data.length

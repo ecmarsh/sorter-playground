@@ -1,5 +1,8 @@
 export default class NumbersCollection {
-  constructor(public data: number[]) {}
+  constructor(public data: number[]) {
+    this.compare = this.compare.bind(this)
+    this.swap = this.compare.bind(this)
+  }
 
   public get length() {
     return this.data.length

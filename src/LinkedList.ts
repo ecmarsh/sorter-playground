@@ -6,7 +6,10 @@ export default class LinkedList {
   constructor(
     public data: { head: Node | null } = { head: null },
     protected size: number = 0
-  ) {}
+  ) {
+    this.compare = this.compare.bind(this)
+    this.swap = this.swap.bind(this)
+  }
 
   public get length(): number {
     return this.size
