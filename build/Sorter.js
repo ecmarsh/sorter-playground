@@ -1,21 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class Sorter {
-    constructor(collection) {
-        this.collection = collection;
-    }
     sort() {
-        const { length, compare, swap } = this.collection;
+        const { length } = this;
         for (let i = 0; i < length; i++) {
             for (let j = 0; j < length - i - 1; j++) {
-                if (compare(j, j + 1)) {
-                    swap(j, j + 1);
+                if (this.compare(j, j + 1)) {
+                    this.swap(j, j + 1);
                 }
             }
         }
     }
-    print() {
-        this.collection.print();
+    basePrint() {
+        this.print();
     }
 }
 exports.default = Sorter;

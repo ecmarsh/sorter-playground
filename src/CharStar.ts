@@ -1,7 +1,8 @@
-export default class CharStar {
+import Sorter from './Sorter'
+
+export default class CharStar extends Sorter {
   constructor(public data: string) {
-    this.compare = this.compare.bind(this)
-    this.swap = this.swap.bind(this)
+    super()
   }
 
   public get length(): number {

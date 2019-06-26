@@ -1,7 +1,8 @@
-export default class NumbersCollection {
+import Sorter from './Sorter'
+
+export default class NumbersCollection extends Sorter {
   constructor(public data: number[]) {
-    this.compare = this.compare.bind(this)
-    this.swap = this.compare.bind(this)
+    super()
   }
 
   public get length() {

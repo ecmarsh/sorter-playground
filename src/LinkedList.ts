@@ -1,14 +1,15 @@
+import Sorter from './Sorter'
+
 class Node {
   constructor(public value: number, public next: Node | null = null) {}
 }
 
-export default class LinkedList {
+export default class LinkedList extends Sorter {
   constructor(
     public data: { head: Node | null } = { head: null },
     protected size: number = 0
   ) {
-    this.compare = this.compare.bind(this)
-    this.swap = this.swap.bind(this)
+    super()
   }
 
   public get length(): number {

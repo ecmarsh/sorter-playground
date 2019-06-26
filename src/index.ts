@@ -1,7 +1,11 @@
-import Sorter, { Sortable } from './Sorter'
 import NumbersCollection from './NumbersCollection'
 import CharStar from './CharStar'
 import LinkedList from './LinkedList'
+
+interface Drivable {
+  print(): void
+  sort(): void
+}
 
 const unsortedValues = [10, -3, -5, 0]
 const unsortedString = 'XaAbyC'
@@ -11,7 +15,7 @@ const charactersCollection = new CharStar(unsortedString)
 const linkedListCollection = new LinkedList()
 linkedListCollection.fillWith(unsortedValues)
 
-const collections: Sortable[] = [
+const collections: Drivable[] = [
   numbersCollection,
   charactersCollection,
   linkedListCollection,
@@ -19,10 +23,9 @@ const collections: Sortable[] = [
 
 driver(collections)
 
-function driver(sortables: Sortable[]): void {
-  for (const sortable of sortables) {
-    const sorter = new Sorter(sortable)
-    sorter.sort()
-    sorter.print()
+function driver(drivables: Drivable[]): void {
+  for (const drivable of drivables) {
+    drivable.sort()
+    drivable.print()
   }
 }

@@ -4,23 +4,27 @@ export interface Sortable {
   compare(leftIdx: number, rightIdx: number): boolean
   swap(leftIdx: number, rightIdx: number): void
   print(): void
+  sort(): void
 }
 
-export default class Sorter {
-  constructor(public collection: Sortable) {}
+export default abstract class Sorter {
+  abstract length: number
+  abstract compare(leftIdx: number, rightIdx: number): boolean
+  abstract swap(leftIdx: number, rightIdx: number): void
+  abstract print(): void
 
   public sort(): void {
-    const { length, compare, swap } = this.collection
+    const { length } = this
     for (let i = 0; i < length; i++) {
       for (let j = 0; j < length - i - 1; j++) {
-        if (compare(j, j + 1)) {
-          swap(j, j + 1)
+        if (this.compare(j, j + 1)) {
+          this.swap(j, j + 1)
         }
       }
     }
   }
 
-  public print(): void {
-    this.collection.print()
+  public basePrint(): void {
+    this.print()
   }
 }
