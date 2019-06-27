@@ -3,24 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const NumbersCollection_1 = __importDefault(require("./NumbersCollection"));
-const CharStar_1 = __importDefault(require("./CharStar"));
-const LinkedList_1 = __importDefault(require("./LinkedList"));
-const unsortedValues = [10, -3, -5, 0];
-const unsortedString = 'XaAbyC';
-const numbersCollection = new NumbersCollection_1.default(unsortedValues);
-const charactersCollection = new CharStar_1.default(unsortedString);
-const linkedListCollection = new LinkedList_1.default();
-linkedListCollection.fillWith(unsortedValues);
-const collections = [
-    numbersCollection,
-    charactersCollection,
-    linkedListCollection,
-];
-driver(collections);
-function driver(drivables) {
+const Collections_1 = __importDefault(require("./Collections"));
+const Drivable_1 = require("./Drivable");
+const drivableCollections = Drivable_1.generateDrivables(Collections_1.default);
+function drive(drivables) {
     for (const drivable of drivables) {
         drivable.sort();
         drivable.print();
     }
 }
+drive(drivableCollections);

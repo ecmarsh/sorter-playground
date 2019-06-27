@@ -1,11 +1,7 @@
-import Sorter from './Sorter'
+export default class NumbersCollection {
+  constructor(public data: number[]) {}
 
-export default class NumbersCollection extends Sorter {
-  constructor(public data: number[]) {
-    super()
-  }
-
-  public get length() {
+  public get length(): number {
     return this.data.length
   }
 
@@ -19,7 +15,7 @@ export default class NumbersCollection extends Sorter {
     this.data[rightIdx] = dataLeft
   }
 
-  public print(): void {
-    console.log(this.constructor.name + ': [' + this.data + ']')
+  public get displayName(): string {
+    return `${this.constructor.name}: [${this.data}]`
   }
 }

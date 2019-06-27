@@ -11,8 +11,5 @@ class Sorter {
             }
         }
     }
-    basePrint() {
-        this.print();
-    }
 }
 exports.default = Sorter;

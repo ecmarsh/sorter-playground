@@ -1,19 +1,36 @@
-import Sorter from './Sorter'
-
-class Node {
-  constructor(public value: number, public next: Node | null = null) {}
+class Node<T> {
+  constructor(public value: T, public next: Node<any> | null = null) { }
 }
 
-export default class LinkedList extends Sorter {
-  constructor(
-    public data: { head: Node | null } = { head: null },
-    protected size: number = 0
-  ) {
-    super()
+export default class LinkedList {
+  static fromValues(data: Array<any>): LinkedList {
+    const linkedListInstance = new LinkedList()
+    for (const element of data) {
+      linkedListInstance.addAtTail(element)
+    }
+    return linkedListInstance
   }
+
+  constructor(
+    public data: { head: Node<any> | null } = { head: null },
+    protected size: number = 0
+  ) { }
 
   public get length(): number {
     return this.size
+  }
+
+  public get displayName(): string {
+    let currentNode: Node<any> | null = this.data.head
+    const linkedListPrettified: Node<any>[] = []
+    while (currentNode) {
+      const nodePrettified = Object.assign({}, currentNode)
+      delete nodePrettified.next
+      linkedListPrettified.push(nodePrettified)
+      currentNode = currentNode.next
+    }
+
+    return `${this.constructor.name}: ${JSON.stringify(linkedListPrettified)}`
   }
 
   public compare(leftIdx: number, rightIdx: number): boolean {
@@ -38,7 +55,7 @@ export default class LinkedList extends Sorter {
     }
   }
 
-  public addAtTail(value: number): void {
+  public addAtTail<T>(value: T): void {
     let currentNode = this.data.head
 
     if (!currentNode) {
@@ -53,8 +70,8 @@ export default class LinkedList extends Sorter {
     this.incrementSize()
   }
 
-  public accessAt(index: number): Node | void {
-    let currentNode: Node | null = this.data.head
+  public accessAt(index: number): Node<any> | void {
+    let currentNode: Node<any> | null = this.data.head
 
     let counter = 0
     while (currentNode) {
@@ -69,30 +86,11 @@ export default class LinkedList extends Sorter {
     this.throwAcessError(index)
   }
 
-  public fillWith(values: number[]) {
-    for (const value of values) {
-      this.addAtTail(value)
-    }
-  }
-
-  public print(): void {
-    let currentNode: Node | null = this.data.head
-    const linkedListPrettified: Node[] = []
-    while (currentNode) {
-      const nodePrettified = { ...currentNode }
-      delete nodePrettified.next
-      linkedListPrettified.push(nodePrettified)
-      currentNode = currentNode.next
-    }
-
-    console.log(this.constructor.name + ':', linkedListPrettified)
-  }
-
   private incrementSize() {
     this.size++
   }
 
-  private addAtHead(value: number) {
+  private addAtHead<T>(value: T) {
     this.data.head = new Node(value)
   }
 

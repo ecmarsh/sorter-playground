@@ -1,23 +1,36 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Sorter_1 = __importDefault(require("./Sorter"));
 class Node {
     constructor(value, next = null) {
         this.value = value;
         this.next = next;
     }
 }
-class LinkedList extends Sorter_1.default {
+class LinkedList {
     constructor(data = { head: null }, size = 0) {
-        super();
         this.data = data;
         this.size = size;
     }
+    static fromValues(data) {
+        const linkedListInstance = new LinkedList();
+        for (const element of data) {
+            linkedListInstance.addAtTail(element);
+        }
+        return linkedListInstance;
+    }
     get length() {
         return this.size;
+    }
+    get displayName() {
+        let currentNode = this.data.head;
+        const linkedListPrettified = [];
+        while (currentNode) {
+            const nodePrettified = Object.assign({}, currentNode);
+            delete nodePrettified.next;
+            linkedListPrettified.push(nodePrettified);
+            currentNode = currentNode.next;
+        }
+        return `${this.constructor.name}: ${JSON.stringify(linkedListPrettified)}`;
     }
     compare(leftIdx, rightIdx) {
         const leftNode = this.accessAt(leftIdx);
@@ -60,22 +73,6 @@ class LinkedList extends Sorter_1.default {
             currentNode = currentNode.next;
         }
         this.throwAcessError(index);
-    }
-    fillWith(values) {
-        for (const value of values) {
-            this.addAtTail(value);
-        }
-    }
-    print() {
-        let currentNode = this.data.head;
-        const linkedListPrettified = [];
-        while (currentNode) {
-            const nodePrettified = Object.assign({}, currentNode);
-            delete nodePrettified.next;
-            linkedListPrettified.push(nodePrettified);
-            currentNode = currentNode.next;
-        }
-        console.log(this.constructor.name + ':', linkedListPrettified);
     }
     incrementSize() {
         this.size++;

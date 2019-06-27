@@ -1,9 +1,5 @@
-import Sorter from './Sorter'
-
-export default class CharStar extends Sorter {
-  constructor(public data: string) {
-    super()
-  }
+export default class CharStar {
+  constructor(public data: string) { }
 
   public get length(): number {
     return this.data.length
@@ -23,7 +19,7 @@ export default class CharStar extends Sorter {
     this.data = characters.join('')
   }
 
-  public print(): void {
-    console.log(this.constructor.name + ': "' + this.data + '"')
+  public get displayName(): string {
+    return `${this.constructor.name}: "${this.data}"`
   }
 }
