@@ -9,8 +9,8 @@ const applyMixins_1 = require("./applyMixins");
 class Drivable {
     constructor(drivable) {
         this.drivable = drivable;
-        this.compare = this.drivable.compare.bind(this.drivable);
-        this.swap = this.drivable.swap.bind(this.drivable);
+        this.compare = this.drivable.compare;
+        this.swap = this.drivable.swap;
         this.length = this.drivable.length;
     }
     get displayName() {
@@ -19,12 +19,16 @@ class Drivable {
 }
 exports.default = Drivable;
 applyMixins_1.applyMixins(Drivable, [Printer_1.default, Sorter_1.default]);
-function generateDrivables(factory) {
-    let items = [];
-    for (const key in factory) {
-        const fn = factory[key];
-        items.push(fn());
-    }
-    return items.map(item => new Drivable(item));
-}
-exports.generateDrivables = generateDrivables;
+exports.generateDrivables = factory => {
+    const generateAllFactoryValues = () => {
+        let values = [];
+        for (const key in factory) {
+            const fn = factory[key];
+            const value = fn();
+            values.push(value);
+        }
+        return values;
+    };
+    const factoryInstances = generateAllFactoryValues();
+    return factoryInstances.map(instance => new Drivable(instance));
+};

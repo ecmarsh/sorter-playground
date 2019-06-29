@@ -10,6 +10,23 @@ class LinkedList {
     constructor(data = { head: null }, size = 0) {
         this.data = data;
         this.size = size;
+        this.compare = (leftIdx, rightIdx) => {
+            const leftNode = this.accessAt(leftIdx);
+            const rightNode = this.accessAt(rightIdx);
+            if (leftNode && rightNode) {
+                return leftNode.value > rightNode.value;
+            }
+            return false;
+        };
+        this.swap = (leftIdx, rightIdx) => {
+            const leftNode = this.accessAt(leftIdx);
+            const rightNode = this.accessAt(rightIdx);
+            if (leftNode && rightNode) {
+                const leftNodeValue = leftNode.value;
+                leftNode.value = rightNode.value;
+                rightNode.value = leftNodeValue;
+            }
+        };
     }
     static fromValues(data) {
         const linkedListInstance = new LinkedList();
@@ -31,23 +48,6 @@ class LinkedList {
             currentNode = currentNode.next;
         }
         return `${this.constructor.name}: ${JSON.stringify(linkedListPrettified)}`;
-    }
-    compare(leftIdx, rightIdx) {
-        const leftNode = this.accessAt(leftIdx);
-        const rightNode = this.accessAt(rightIdx);
-        if (leftNode && rightNode) {
-            return leftNode.value > rightNode.value;
-        }
-        return false;
-    }
-    swap(leftIdx, rightIdx) {
-        const leftNode = this.accessAt(leftIdx);
-        const rightNode = this.accessAt(rightIdx);
-        if (leftNode && rightNode) {
-            const leftNodeValue = leftNode.value;
-            leftNode.value = rightNode.value;
-            rightNode.value = leftNodeValue;
-        }
     }
     addAtTail(value) {
         let currentNode = this.data.head;

@@ -1,5 +1,10 @@
-class Node<T> {
-  constructor(public value: T, public next: Node<any> | null = null) { }
+interface ListNode<T> {
+  value: T
+  next: ListNode<T> | null
+}
+
+class Node<T> implements ListNode<T> {
+  constructor(public value: T, public next: Node<T> | null = null) { }
 }
 
 export default class LinkedList {
@@ -33,7 +38,7 @@ export default class LinkedList {
     return `${this.constructor.name}: ${JSON.stringify(linkedListPrettified)}`
   }
 
-  public compare(leftIdx: number, rightIdx: number): boolean {
+  public compare: Compare = (leftIdx, rightIdx) => {
     const leftNode = this.accessAt(leftIdx)
     const rightNode = this.accessAt(rightIdx)
 
@@ -44,7 +49,7 @@ export default class LinkedList {
     return false
   }
 
-  public swap(leftIdx: number, rightIdx: number): void {
+  public swap: Swap = (leftIdx, rightIdx) => {
     const leftNode = this.accessAt(leftIdx)
     const rightNode = this.accessAt(rightIdx)
 

@@ -3,28 +3,38 @@ import Printer, { Printable } from './Printer'
 import { applyMixins } from './applyMixins'
 import { Factory } from './Collections'
 
-export default class Drivable implements Sorter, Printer {
-	constructor(public drivable: Sortable & Printable) { }
+type SortablePrintable = Sortable & Printable
 
-	// Sortable
-	compare: (l: number, r: number) => boolean = this.drivable.compare.bind(this.drivable)
-	swap: (l: number, r: number) => void = this.drivable.swap.bind(this.drivable)
+export default class Drivable<T extends SortablePrintable> implements Sorter, Printer {
+	constructor(public drivable: T) { }
+
+	compare: Compare = this.drivable.compare
+	swap: Swap = this.drivable.swap
 	length: number = this.drivable.length
-	sort!: () => void;
-	// Printable
 	get displayName() {
 		return this.drivable.displayName
 	}
+
+	// Sortable mixin
+	sort!: () => void;
+	// Printable mixin
 	print!: () => void
 }
 applyMixins(Drivable, [Printer, Sorter])
 
-export function generateDrivables(factory: Factory): Array<Drivable> {
-	// Object.values(factory)
-	let items = []
-	for (const key in factory) {
-		const fn = factory[key]
-		items.push(fn())
+type GenerateDrivables = (factory: Factory) => Drivable<SortablePrintable>[]
+
+export const generateDrivables: GenerateDrivables = factory => {
+	const generateAllFactoryValues = () => {
+		let values = []
+		for (const key in factory) {
+			const fn = factory[key]
+			const value = fn()
+			values.push(value)
+		}
+		return values
 	}
-	return items.map(item => new Drivable(item))
+
+	const nondrivables = generateAllFactoryValues()
+	return nondrivables.map(nondrivable => new Drivable(nondrivable))
 }

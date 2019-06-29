@@ -2,11 +2,7 @@ import CharStar from './CharStar'
 import NumbersCollection from './NumbersCollection'
 import LinkedList from './LinkedList'
 
-export type Collection = LinkedList | NumbersCollection | CharStar
-
-export type Factory = {
-	[key: string]: () => Collection
-}
+type Collection = LinkedList | NumbersCollection | CharStar
 
 enum Collections {
 	LinkedList = 'LinkedList',
@@ -40,6 +36,10 @@ function create(collection?: string): Collection {
 			return new Default(unsorted.default)
 		}
 	}
+}
+
+export type Factory = {
+	[key: string]: () => Collection
 }
 
 export default {

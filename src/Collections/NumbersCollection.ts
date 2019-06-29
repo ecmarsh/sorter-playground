@@ -1,15 +1,15 @@
 export default class NumbersCollection {
-  constructor(public data: number[]) {}
+  constructor(public data: number[]) { }
 
   public get length(): number {
     return this.data.length
   }
 
-  public compare(leftIdx: number, rightIdx: number): boolean {
+  public compare: Compare = (leftIdx, rightIdx) => {
     return this.data[leftIdx] > this.data[rightIdx]
   }
 
-  public swap(leftIdx: number, rightIdx: number): void {
+  public swap: Swap = (leftIdx, rightIdx) => {
     const dataLeft = this.data[leftIdx]
     this.data[leftIdx] = this.data[rightIdx]
     this.data[rightIdx] = dataLeft
